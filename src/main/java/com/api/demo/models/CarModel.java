@@ -22,6 +22,10 @@ public class CarModel {
 
     // ===== getters y setters =====
 
+    public int hola(){
+        return 1;
+    }
+
     public Long getId() {
         return id;
     }
