@@ -1,4 +1,5 @@
 package com.api.demo.services;
+import com.api.demo.exceptions.UserNotFoundException;
 
 import com.api.demo.models.UserModel;
 import com.api.demo.repositories.IUserRepository;
@@ -28,7 +29,8 @@ public class UserService {
 
     public UserModel updateById(UserModel request, long id) {
         UserModel user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(id));
+
 
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());

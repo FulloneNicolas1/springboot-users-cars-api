@@ -99,4 +99,12 @@ class UserControllerTest {
 
         verify(userService).deleteUser(1L);
     }
+    @Test
+    void shouldReturn404WhenUserNotFound() throws Exception {
+        when(userService.getUserById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/user/1"))
+                .andExpect(status().isNotFound());
+    }
+
 }
