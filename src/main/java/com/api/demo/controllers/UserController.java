@@ -2,6 +2,7 @@ package com.api.demo.controllers;
 
 import com.api.demo.models.UserModel;
 import com.api.demo.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,11 @@ public class UserController {
     }
 
     @PostMapping
-    public UserModel saveUser(@RequestBody UserModel user) {
-        return this.userService.saveUser(user);
+    public ResponseEntity<UserModel> saveUser(@Valid @RequestBody UserModel user) {
+        UserModel saved = this.userService.saveUser(user);
+        return ResponseEntity.ok(saved);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<UserModel> getUserById(@PathVariable long id) {
@@ -36,7 +39,7 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserModel> updateUserById(@RequestBody UserModel request,
+    public ResponseEntity<UserModel> updateUserById(@Valid @RequestBody UserModel request,
                                                     @PathVariable Long id) {
         UserModel updated = userService.updateById(request, id);
         return ResponseEntity.ok(updated);
