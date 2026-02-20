@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import com.api.demo.web.dto.UserCreateRequest;
+import com.api.demo.web.mapper.UserMapper;
 
 import java.util.List;
 
@@ -24,11 +26,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> saveUser(@Valid @RequestBody UserModel user) {
-        UserModel saved = this.userService.saveUser(user);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<UserModel> saveUser(@Valid @RequestBody UserCreateRequest request) {
+        return ResponseEntity.ok(
+                userService.saveUser(UserMapper.toModel(request))
+        );
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<UserModel> getUserById(@PathVariable long id) {
@@ -37,14 +39,15 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<UserModel> updateUserById(@Valid @RequestBody UserModel request,
-                                                    @PathVariable Long id) {
-        UserModel updated = userService.updateById(request, id);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<UserModel> updateUserById(
+            @Valid @RequestBody UserCreateRequest request,
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(
+                userService.updateById(UserMapper.toModel(request), id)
+        );
     }
-
 
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") long id) {

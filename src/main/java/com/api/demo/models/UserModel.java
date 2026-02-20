@@ -1,8 +1,6 @@
 package com.api.demo.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +13,9 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "firstName requested")
+
     private String firstName;
-    @NotBlank(message = "lastName requested")
     private String lastName;
-    @NotBlank(message = "email requested")
-    @Email(message = "email invalid")
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
