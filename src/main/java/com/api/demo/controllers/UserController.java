@@ -3,10 +3,12 @@ package com.api.demo.controllers;
 import com.api.demo.models.UserModel;
 import com.api.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -25,15 +27,21 @@ public class UserController {
         return this.userService.saveUser(user);
     }
 
-    @GetMapping(path = "/{id}")
-    public Optional<UserModel> getUserById(@PathVariable long id) {
-        return this.userService.getUserById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<UserModel> getUserById(@PathVariable long id) {
+        UserModel user = userService.getUserById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(user);
     }
 
-    @PutMapping(path = "/{id}")
-    public UserModel updateUserById(@RequestBody UserModel request,@PathVariable long id) {
-        return this.userService.updateById(request, id);
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserModel> updateUserById(@RequestBody UserModel request,
+                                                    @PathVariable Long id) {
+        UserModel updated = userService.updateById(request, id);
+        return ResponseEntity.ok(updated);
     }
+
 
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") long id) {
