@@ -2,11 +2,14 @@ package com.api.demo.controllers;
 
 import com.api.demo.models.UserModel;
 import com.api.demo.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import com.api.demo.web.dto.CreateUserRequest;
+import com.api.demo.web.mapper.UserMapper;
 
 import java.util.List;
 
@@ -23,8 +26,10 @@ public class UserController {
     }
 
     @PostMapping
-    public UserModel saveUser(@RequestBody UserModel user) {
-        return this.userService.saveUser(user);
+    public ResponseEntity<UserModel> saveUser(@Valid @RequestBody CreateUserRequest request) {
+        return ResponseEntity.ok(
+                userService.saveUser(UserMapper.toModel(request))
+        );
     }
 
     @GetMapping("/{id}")
@@ -34,14 +39,15 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<UserModel> updateUserById(@RequestBody UserModel request,
-                                                    @PathVariable Long id) {
-        UserModel updated = userService.updateById(request, id);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<UserModel> updateUserById(
+            @Valid @RequestBody CreateUserRequest request,
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(
+                userService.updateById(UserMapper.toModel(request), id)
+        );
     }
-
 
     @DeleteMapping(path = "/{id}")
     public String deleteById(@PathVariable("id") long id) {
