@@ -1,15 +1,15 @@
 package com.api.demo.web.mapper;
 
 import com.api.demo.models.UserModel;
-import com.api.demo.web.dto.UserCreateRequest;
+import com.api.demo.web.dto.CreateUserRequest;
 
 public class UserMapper {
 
-    public static UserModel toModel(UserCreateRequest request) {
-        UserModel user = new UserModel();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        return user;
+    public static UserModel toModel(CreateUserRequest request) {
+        return new UserModel(
+                request.getFirstName(),
+                request.getLastName(),
+                request.getEmail()
+        );
     }
 }

@@ -31,7 +31,6 @@ public class UserService {
         UserModel user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class UserCreateRequest {
+public class CreateUserRequest {
 
     @NotBlank(message = "firstName requested")
     private String firstName;

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import com.api.demo.web.dto.UserCreateRequest;
+import com.api.demo.web.dto.CreateUserRequest;
 import com.api.demo.web.mapper.UserMapper;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> saveUser(@Valid @RequestBody UserCreateRequest request) {
+    public ResponseEntity<UserModel> saveUser(@Valid @RequestBody CreateUserRequest request) {
         return ResponseEntity.ok(
                 userService.saveUser(UserMapper.toModel(request))
         );
@@ -41,7 +41,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserModel> updateUserById(
-            @Valid @RequestBody UserCreateRequest request,
+            @Valid @RequestBody CreateUserRequest request,
             @PathVariable Long id
     ) {
         return ResponseEntity.ok(
