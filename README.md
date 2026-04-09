@@ -34,6 +34,3 @@ Proyecto pensado para practicar relaciones **OneToMany / ManyToOne** con **JPA +
 Relación:
 - **Un usuario puede tener muchos autos**
 - **Un auto pertenece a un usuario**
-
-
-## 📂 Estructura del proyecto
