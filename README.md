@@ -5,7 +5,7 @@ Proyecto pensado para practicar relaciones **OneToMany / ManyToOne** con **JPA +
 
 ---
 
-## 🛠 Tecnologías usadas
+## Tecnologías usadas
 
 - Java 
 - Spring Boot
@@ -17,7 +17,7 @@ Proyecto pensado para practicar relaciones **OneToMany / ManyToOne** con **JPA +
 
 ---
 
-## 📌 Funcionalidades
+## Funcionalidades
 
 ### Usuarios
 - Crear usuario
@@ -37,4 +37,3 @@ Relación:
 
 
 ## 📂 Estructura del proyecto
-
